@@ -20,4 +20,5 @@
     <rule ref=".sheriff/phpcs/slevomat-flow.xml"/>
     <rule ref=".sheriff/phpcs/slevomat-style.xml"/>
 
+
 </ruleset>

@@ -140,7 +140,6 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: .sheriff/codecov/coverage.xml
-          codecov_yml_path: .sheriff/codecov/.codecov.yml
           fail_ci_if_error: true
 
       # ------------------------------------------------------------
