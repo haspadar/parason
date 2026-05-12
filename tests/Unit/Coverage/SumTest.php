@@ -63,4 +63,30 @@ final class SumTest extends TestCase
             'EmptyMetric is the neutral element for Sum covered',
         );
     }
+
+    #[Test]
+    public function leavesRightTotalUnchangedWhenLeftIsEmpty(): void
+    {
+        self::assertSame(
+            50,
+            (new Sum(
+                new EmptyMetric(),
+                new FakeMetric(50, 42),
+            ))->total(),
+            'EmptyMetric on the left is the neutral element for Sum total',
+        );
+    }
+
+    #[Test]
+    public function leavesRightCoveredUnchangedWhenLeftIsEmpty(): void
+    {
+        self::assertSame(
+            42,
+            (new Sum(
+                new EmptyMetric(),
+                new FakeMetric(50, 42),
+            ))->covered(),
+            'EmptyMetric on the left is the neutral element for Sum covered',
+        );
+    }
 }
