@@ -39,7 +39,20 @@ final class SumTest extends TestCase
     }
 
     #[Test]
-    public function leavesLeftUnchangedWhenRightIsEmpty(): void
+    public function leavesLeftTotalUnchangedWhenRightIsEmpty(): void
+    {
+        self::assertSame(
+            50,
+            (new Sum(
+                new FakeMetric(50, 42),
+                new EmptyMetric(),
+            ))->total(),
+            'EmptyMetric is the neutral element for Sum total',
+        );
+    }
+
+    #[Test]
+    public function leavesLeftCoveredUnchangedWhenRightIsEmpty(): void
     {
         self::assertSame(
             42,
@@ -47,7 +60,7 @@ final class SumTest extends TestCase
                 new FakeMetric(50, 42),
                 new EmptyMetric(),
             ))->covered(),
-            'EmptyMetric is the neutral element for Sum',
+            'EmptyMetric is the neutral element for Sum covered',
         );
     }
 }
