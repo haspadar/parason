@@ -35,6 +35,6 @@
         "sort-packages": true
     },
     "require-dev": {
-        "haspadar/piqule": "^0.26.12"
+        "haspadar/sheriff": "^0.29.0"
     }
 }
