@@ -2,7 +2,7 @@
 set -euo pipefail
 
 CLOUD="true"
-if [ "$CLOUD" = "1" ] || [ "$CLOUD" = "true" ] || [ "$CLOUD" = "yes" ] || [ "$CLOUD" = "on" ]; then
+if [ "$CLOUD" = "true" ]; then
   printf '\033[33m[SKIP] SonarCloud automatic analysis — no local scanner needed\033[0m\n'
   exit 0
 fi
@@ -37,7 +37,8 @@ else
 fi
 
 PROJECT_ROOT="$(pwd)"
-IMAGE="${PIQULE_INFRA_IMAGE:-ghcr.io/haspadar/sheriff-infra@sha256:c8bba3dd36290d89d3c8f7cfad24071b3435fa447050ff70251bf053cea6a28c}"
+DEFAULT_IMAGE="ghcr.io/haspadar/sheriff-infra@sha256:88c76164614b7a8eaa26db74470966458389c237bbf2d6e819ac222cd2ac3762"
+IMAGE="${SHERIFF_INFRA_IMAGE:-$DEFAULT_IMAGE}"
 
 docker run --rm \
   --user "$(id -u):$(id -g)" \
