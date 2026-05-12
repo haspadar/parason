@@ -6,13 +6,14 @@
 #     override:
 #         phpstan.level: 8
 #     append:
-#         exclude:
-#             - legacy
+#         infra.exclude:
+#             - dist
 
 defaults:
   php.src: ["src"]
-  exclude: ["vendor", "tests", ".git"]
+  infra.exclude: ["vendor", "tests", ".git"]
   php.versions: ["8.3"]
+  envs: {}
 
   check.full: false
   check.parallel: true
@@ -38,7 +39,6 @@ defaults:
 
   hadolint.cli: true
   hadolint.failure_threshold: "error"
-  hadolint.ignore: ["vendor", "tests", ".git"]
   hadolint.ignored_yaml: "[]"
   hadolint.override.error_yaml: "[]"
   hadolint.override.warning_yaml: "[]"
@@ -49,23 +49,20 @@ defaults:
   jsonlint.continue: true
   jsonlint.duplicate_keys: false
   jsonlint.mode: ["json5"]
-  jsonlint.patterns: ["**/*.json", "**/*.json5", "**/*.jsonc", "!vendor/**", "!tests/**", "!.git/**"]
+  jsonlint.patterns: ["**/*.json", "**/*.json5", "**/*.jsonc"]
 
   markdownlint.cli: true
   markdownlint.ignores: ["vendor/**", "tests/**", ".git/**"]
 
   php-cs-fixer.cli: true
   php_cs_fixer.allow_unsupported: ["true"]
-  php_cs_fixer.exclude: ["vendor", "tests", ".git"]
+  php_cs_fixer.extend: ""
   php_cs_fixer.paths: ["../.."]
 
   phpcs.cli: true
-  phpcs.excludes: ["vendor/*", "tests/*", ".git/*"]
-  phpcs.files: ["../../src"]
-  phpcs.root_namespace: ""
+  phpcs.extend: ""
 
   phpmd.cli: true
-  phpmd.paths: ["src"]
   phpmd.class_complexity: 50
   phpmd.class_length: 200
   phpmd.cyclomatic: 10
@@ -76,8 +73,6 @@ defaults:
   phpmd.npath: 200
 
   phpmetrics.cli: true
-  phpmetrics.includes: ["../../src"]
-  phpmetrics.excludes: ["vendor", "tests", ".git"]
   phpmetrics.extensions: ["php"]
   phpmetrics.complexity.max_cyclomatic_per_method: 10
   phpmetrics.complexity.max_weighted_methods_per_class: 20
@@ -96,47 +91,51 @@ defaults:
   phpmetrics.structure.max_methods_per_class: 10
 
   phpstan.cli: true
-  phpstan.level: 9
   phpstan.memory: "1G"
-  phpstan.paths: ["../../src"]
-  phpstan.checked_exceptions: ['\Throwable']
   phpstan.neon_includes: ["../../vendor/phpstan/phpstan-strict-rules/rules.neon", "../../vendor/haspadar/phpstan-rules/rules.neon"]
-  phpstan.afferent_coupling.ignore_interfaces: true
-  phpstan.afferent_coupling.excluded_classes: []
+  phpstan.parameters:
+    level: 9
+    errorFormat: table
+    reportUnmatchedIgnoredErrors: true
+    checkUninitializedProperties: true
+    checkClassCaseSensitivity: true
+    checkDynamicProperties: true
+    exceptions:
+      checkedExceptionClasses:
+        - '\Throwable'
+    haspadar:
+      afferentCoupling:
+        ignoreInterfaces: true
+        excludedClasses: []
 
   phpunit.cli: true
   phpunit.php_options: "-d memory_limit=1G"
-  phpunit.source.include: ["../../src"]
   phpunit.testsuites.unit: ["../../tests/Unit"]
   phpunit.testsuites.integration: ["../../tests/Integration"]
 
   psalm.cli: true
   psalm.error_level: 1
-  psalm.project.directories: ["../../src"]
   psalm.project.files: []
-  psalm.project.ignore: ["../../vendor", "../../tests", "../../.git"]
+  psalm.project.ignore: []
   psalm.suppress.possibly_unused: []
 
   infection.cli: true
-  infection.min_msi: 50
-  infection.min_covered_msi: 80
+  infection.min_msi: 50.0
+  infection.min_covered_msi: 80.0
   infection.php_options: "-d memory_limit=1G"
-  infection.source.directories: ["../../src"]
   infection.timeout: 30
 
   shellcheck.cli: true
   shellcheck.exclude: []
   shellcheck.external_sources: true
-  shellcheck.ignore_dirs: ["vendor", "tests", ".git"]
   shellcheck.severity: "warning"
   shellcheck.shell: "bash"
   shellcheck.source_path: "."
 
   sonar.cloud: true
   sonar.cli: false
-  sonar.organization: []
-  sonar.projectKey: []
-  sonar.sources: ["src"]
+  sonar.organization: ""
+  sonar.projectKey: ""
   sonar.tests: ["tests"]
   sonar.exclusions: []
   sonar.php.coverage.reportPaths: [".sheriff/codecov/coverage.xml"]

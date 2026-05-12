@@ -3,25 +3,21 @@ includes:
     - ../../vendor/haspadar/phpstan-rules/rules.neon
 
 parameters:
-    level: 9
-
+    # paths sit outside phpstan.parameters because they are derived from php.src
+    # rather than declared as a static tree leaf.
     paths:
         - ../../src
 
+    level: 9
     errorFormat: table
     reportUnmatchedIgnoredErrors: true
-
     checkUninitializedProperties: true
     checkClassCaseSensitivity: true
     checkDynamicProperties: true
-
     exceptions:
-        check:
-            missingCheckedExceptionInThrows: true
         checkedExceptionClasses:
             - \Throwable
-
     haspadar:
         afferentCoupling:
             ignoreInterfaces: true
-
+            excludedClasses: []
