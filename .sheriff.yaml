@@ -3,3 +3,7 @@ override:
     sonar.organization: haspadar-org
     sonar.projectKey: haspadar_parason
     ci.pr.max_lines_changed: 500
+
+append:
+    infra.exclude:
+        - docs
