@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Haspadar\Parason\Coverage;
 
 use Override;
+use Primus\Number\Number;
+use Primus\Number\NumberOf;
 
 /**
  * A metric with no data: zero total, zero covered.
@@ -14,14 +16,14 @@ use Override;
 final readonly class EmptyMetric implements Metric
 {
     #[Override]
-    public function total(): int
+    public function total(): Number
     {
-        return 0;
+        return new NumberOf(0);
     }
 
     #[Override]
-    public function covered(): int
+    public function covered(): Number
     {
-        return 0;
+        return new NumberOf(0);
     }
 }

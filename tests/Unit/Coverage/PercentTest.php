@@ -17,7 +17,7 @@ final class PercentTest extends TestCase
     {
         self::assertSame(
             100.0,
-            (new Percent(new EmptyMetric()))->value(),
+            (new Percent(new EmptyMetric()))->value()->asFloat(),
             'Empty metric has nothing left uncovered, so the percentage is full',
         );
     }
@@ -27,7 +27,7 @@ final class PercentTest extends TestCase
     {
         self::assertSame(
             100.0,
-            (new Percent(new FakeMetric(40, 40)))->value(),
+            (new Percent(new FakeMetric(40, 40)))->value()->asFloat(),
             'Equal total and covered means every item is covered',
         );
     }
@@ -37,7 +37,7 @@ final class PercentTest extends TestCase
     {
         self::assertSame(
             50.0,
-            (new Percent(new FakeMetric(40, 20)))->value(),
+            (new Percent(new FakeMetric(40, 20)))->value()->asFloat(),
             'Half-covered metric yields fifty percent',
         );
     }
@@ -47,7 +47,7 @@ final class PercentTest extends TestCase
     {
         self::assertSame(
             0.0,
-            (new Percent(new FakeMetric(40, 0)))->value(),
+            (new Percent(new FakeMetric(40, 0)))->value()->asFloat(),
             'No covered items in a non-empty metric yield zero percent',
         );
     }
@@ -57,9 +57,9 @@ final class PercentTest extends TestCase
     {
         self::assertEqualsWithDelta(
             12.5,
-            (new Percent(new FakeMetric(8, 1)))->value(),
+            (new Percent(new FakeMetric(8, 1)))->value()->asFloat(),
             0.0001,
-            'Multiplication by hundred must happen before integer division would truncate',
+            'Fractional ratio one-eighth scales to twelve and a half percent',
         );
     }
 }

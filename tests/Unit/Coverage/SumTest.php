@@ -20,7 +20,7 @@ final class SumTest extends TestCase
             (new Sum(
                 new FakeMetric(30, 21),
                 new FakeMetric(18, 9),
-            ))->total(),
+            ))->total()->asInt(),
             'Sum reports total as the sum of the two operand totals',
         );
     }
@@ -33,7 +33,7 @@ final class SumTest extends TestCase
             (new Sum(
                 new FakeMetric(30, 21),
                 new FakeMetric(18, 9),
-            ))->covered(),
+            ))->covered()->asInt(),
             'Sum reports covered as the sum of the two operand covered counts',
         );
     }
@@ -46,7 +46,7 @@ final class SumTest extends TestCase
             (new Sum(
                 new FakeMetric(50, 42),
                 new EmptyMetric(),
-            ))->total(),
+            ))->total()->asInt(),
             'EmptyMetric is the neutral element for Sum total',
         );
     }
@@ -59,7 +59,7 @@ final class SumTest extends TestCase
             (new Sum(
                 new FakeMetric(50, 42),
                 new EmptyMetric(),
-            ))->covered(),
+            ))->covered()->asInt(),
             'EmptyMetric is the neutral element for Sum covered',
         );
     }
@@ -72,7 +72,7 @@ final class SumTest extends TestCase
             (new Sum(
                 new EmptyMetric(),
                 new FakeMetric(50, 42),
-            ))->total(),
+            ))->total()->asInt(),
             'EmptyMetric on the left is the neutral element for Sum total',
         );
     }
@@ -85,7 +85,7 @@ final class SumTest extends TestCase
             (new Sum(
                 new EmptyMetric(),
                 new FakeMetric(50, 42),
-            ))->covered(),
+            ))->covered()->asInt(),
             'EmptyMetric on the left is the neutral element for Sum covered',
         );
     }

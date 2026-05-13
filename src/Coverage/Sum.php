@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Haspadar\Parason\Coverage;
 
 use Override;
+use Primus\Number\Number;
+use Primus\Number\SumOf;
 
 /**
  * Sum of two metrics as a single metric.
@@ -22,14 +24,14 @@ final readonly class Sum implements Metric
     public function __construct(private Metric $left, private Metric $right) {}
 
     #[Override]
-    public function total(): int
+    public function total(): Number
     {
-        return $this->left->total() + $this->right->total();
+        return new SumOf($this->left->total(), $this->right->total());
     }
 
     #[Override]
-    public function covered(): int
+    public function covered(): Number
     {
-        return $this->left->covered() + $this->right->covered();
+        return new SumOf($this->left->covered(), $this->right->covered());
     }
 }
