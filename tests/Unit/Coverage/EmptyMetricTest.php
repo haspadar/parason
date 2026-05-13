@@ -15,7 +15,7 @@ final class EmptyMetricTest extends TestCase
     {
         self::assertSame(
             0,
-            (new EmptyMetric())->total(),
+            (new EmptyMetric())->total()->asInt(),
             'EmptyMetric represents absence of countable items',
         );
     }
@@ -25,7 +25,7 @@ final class EmptyMetricTest extends TestCase
     {
         self::assertSame(
             0,
-            (new EmptyMetric())->covered(),
+            (new EmptyMetric())->covered()->asInt(),
             'EmptyMetric covers nothing because there is nothing to cover',
         );
     }

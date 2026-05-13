@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Haspadar\Parason\Coverage;
 
+use Primus\Number\DivOf;
+use Primus\Number\MultOf;
+use Primus\Number\Number;
+use Primus\Number\NumberOf;
+
 /**
  * Coverage percentage (0..100) computed from a metric.
  *
@@ -12,7 +17,7 @@ namespace Haspadar\Parason\Coverage;
  */
 final readonly class Percent
 {
-    private const float FULL = 100.0;
+    private const int FULL = 100;
 
     /**
      * Wraps the metric whose covered/total ratio defines the percentage.
@@ -24,10 +29,13 @@ final readonly class Percent
     /**
      * Coverage ratio scaled to 0..100.
      */
-    public function value(): float
+    public function value(): Number
     {
-        return $this->metric->total() === 0
-            ? self::FULL
-            : (float) $this->metric->covered() / (float) $this->metric->total() * self::FULL;
+        return $this->metric->total()->asInt() === 0
+            ? new NumberOf(self::FULL)
+            : new MultOf(
+                new DivOf($this->metric->covered(), $this->metric->total()),
+                new NumberOf(self::FULL),
+            );
     }
 }
