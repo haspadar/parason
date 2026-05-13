@@ -13,7 +13,7 @@
     "prefer-stable": true,
     "require": {
         "php": "~8.3.16 || ~8.4.3 || ~8.5.0",
-        "haspadar/primus": "^0.9.0"
+        "haspadar/primus": "^0.11.0"
     },
     "require-dev": {
         "haspadar/sheriff": "^0.29.0"
